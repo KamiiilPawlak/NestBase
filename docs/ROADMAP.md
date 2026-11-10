@@ -40,7 +40,7 @@ Pełne uzasadnienie każdej decyzji: [`research/architecture/checklist.md`](rese
 - [x] Schemat bazy wdraża się od zera jednym przebiegiem (`db/migrations/V001__...`, 14/14 tabel, zweryfikowane)
 - [x] ERD (`docs/architecture/erd.md`)
 - [x] README
-- [ ] Generator danych testowych z wstrzykniętymi błędami (`tools/generate_data.py`)
+- [x] Generator danych testowych z wstrzykniętymi błędami (`tools/generate_data.py`)
 - [ ] Min. 20 zapytań raportowych/walidacyjnych z komentarzem biznesowym
 - [ ] Staging + walidacja + raport błędów, wykrywający realnie wstrzyknięte błędy
 - [ ] Bezpieczna korekta danych w transakcji (`SELECT` → `BEGIN TRAN` → `UPDATE...OUTPUT` → `COMMIT`/`ROLLBACK`)
