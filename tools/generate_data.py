@@ -13,7 +13,18 @@ def connect() -> pyodbc.Connection:
     )
 
 
+def pobierz_materialy(conn: pyodbc.Connection) -> list[str]:
+    cursor = conn.cursor()
+    cursor.execute("SELECT nazwa FROM dbo.materialy")
+    nazwy = [row.nazwa for row in cursor.fetchall()]
+    if not nazwy:
+        raise RuntimeError(
+            "Tabela dbo.materialy jest pusta - uruchom najpierw V002__seed_reference_data.sql."
+        )
+    return nazwy
+
+
 if __name__ == "__main__":
     conn = connect()
-    print("Połączono z bazą:", conn.getinfo(pyodbc.SQL_DATABASE_NAME))
+    print("Materiały w bazie:", pobierz_materialy(conn))
     conn.close()
