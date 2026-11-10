@@ -1,0 +1,56 @@
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        stages: [pre-commit]
+      - id: end-of-file-fixer
+        stages: [pre-commit]
+      - id: check-merge-conflict
+        stages: [pre-commit]
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+        stages: [pre-commit]
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+        stages: [pre-commit]
+
+  - repo: local
+    hooks:
+      - id: black
+        name: black (tools/)
+        entry: uv run --project tools black
+        language: system
+        files: ^tools/.*\.py$
+        stages: [pre-commit]
+
+      - id: ruff
+        name: ruff check (tools/)
+        entry: uv run --project tools ruff check --fix
+        language: system
+        files: ^tools/.*\.py$
+        stages: [pre-commit]
+
+      - id: pytest
+        name: pytest (tools/)
+        entry: uv run --project tools pytest -q
+        language: system
+        files: ^tools/tests/test_.*\.py$
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: sql-naming-convention
+        name: konwencja nazw ograniczeń SQL
+        entry: uv run --project tools python tools/check_sql_naming.py
+        language: system
+        files: ^db/(migrations|rollback)/.*\.sql$
+        stages: [pre-commit]
+
+      # Konwencja wiadomości commitów (Conventional Commits) - commitlint.config.js
+      - id: commitlint
+        name: commitlint
+        entry: npx --no -- commitlint --edit
+        language: system
+        stages: [commit-msg]
