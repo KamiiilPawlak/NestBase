@@ -1,0 +1,10 @@
+{
+  "name": "nestbase",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lint konwencji commitów (commitlint) - baza i warstwa Python żyją w db/ i tools/, nie tutaj",
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0"
+  }
+}
